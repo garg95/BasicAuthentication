@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="Scripts/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var ulEmployees = $('#ulEmployees');
+            $('#btn').click(function () {
+                var gender = $('#txtgender').val();
+                var password = $('#txtpass').val();
+                $.ajax({
+                    type: 'get',
+                    url: 'http://localhost:3060/api/values',
+                    dataType: 'json',
+                    headers: {
+                        'Authorization': 'Basic ' + btoa(gender + ':' + password)
+                    },
+                    success: function (data) {
+                        ulEmployees.empty();
+                        $.each(data, function (index, value) {
+                            ulEmployees.append("<li>" + value.Name + "</li>");
+                        })
+                    },
+                    complete: function (jqXHR) {
+                        if (jqXHR.status == '401') {
+                            ulEmployees.empty();
+                            ulEmployees.append("<li>" + jqXHR.status + ":" + jqXHR.statusText + "</li>");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div>
+        Username:<input type="text" id="txtgender" value="gender" placeholder="gender" />
+        Password:<input type="text" id="txtpass" value="password" placeholder="password" />
+        <input type="button" id="btn" value="Authenticate and get employees" />
+    </div>
+    <ul id="ulEmployees"></ul>
+</body>
+</html>

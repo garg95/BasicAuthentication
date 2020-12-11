@@ -1,0 +1,11 @@
+clientapplication project --- in this only htmlpag1.html file is useful as here we have implemented cross domain ajax call
+Also for jsonp u have to install package from nuget.
+if we use only json we will not be able to hit cross domain application...but with jsonp we are able to hit crossdomain application ....In this application we have used basic authentication and due to some reason we are not able to send authorization parameter in headers section.
+
+----------------------------------------------------------------------------------------------------
+
+for cors
+install package microsoft.aspnet.webapi.cors
+here in htmlpage1.html we will set datatype:'json'
+
+cors is working perfectly fine
